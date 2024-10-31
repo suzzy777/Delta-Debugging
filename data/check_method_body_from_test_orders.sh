@@ -52,7 +52,7 @@ while read line; do
     # Reset IFS to default value (space, tab, newline)
     IFS=$' \t\n'
 
-    exit
+    #exit
     #echo $od_test
     #echo $test_order
     #exit
