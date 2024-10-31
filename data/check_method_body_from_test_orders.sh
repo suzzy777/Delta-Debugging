@@ -31,22 +31,28 @@ while read line; do
     # Set the Internal Field Separator to semicolon to loop through each test
     IFS=';'
     for relevant_test in $prefix_test_orders; do
-        pair_found=$(grep -r ",$od_test,$relevant_test," $dir_that_contains_meth_body | wc -l)
-        if [[ $pair_found -gt 0 ]]; then
-           if [[ $new_prefix_test_orders == "" ]]; then
-               new_prefix_test_orders=$relevant_test
-               echo "new_orders=$new_prefix_test_orders"
-           else
-               echo "Adding semicolon"
-               new_prefix_test_orders="${new_prefix_test_orders};${relevant_test}"
-               echo "new_orders=$new_prefix_test_orders"
-           fi
+        if [[ "$od_test" == *"$relevant_test"* ]]; then
+            echo "$relevant_test exists in $od_test" # if od_test or polluter exists in the order_list
+            new_prefix_test_orders="${new_prefix_test_orders};$relevant_test"
+        else
+            pair_found=$(grep -r ",$od_test,$relevant_test," $dir_that_contains_meth_body | wc -l)
+            if [[ $pair_found -gt 0 ]]; then
+               if [[ $new_prefix_test_orders == "" ]]; then
+                   new_prefix_test_orders=$relevant_test
+                   #echo "new_orders=$new_prefix_test_orders"
+               else
+                   #echo "Adding semicolon"
+                   new_prefix_test_orders="${new_prefix_test_orders};${relevant_test}"
+                   #echo "new_orders=$new_prefix_test_orders"
+               fi
+            fi
         fi
     done
     echo "$proj,$sha,$module,$od_test_category,$od_test,$new_prefix_test_orders" >> "${2}_updated_File.csv"
     # Reset IFS to default value (space, tab, newline)
     IFS=$' \t\n'
 
+    exit
     #echo $od_test
     #echo $test_order
     #exit
