@@ -5,7 +5,7 @@ if [[ $2 == "VP" ]]; then
 elif [[ $2 == "BSS" ]]; then
     dir_that_contains_meth_body="../Bala-Proj/predicting-flakies/Unbalanced/PerProj_Unbalanced_no_Comments/BSS_Per_Brittle/"
 elif [[ $2 == "VPC" ]]; then
-    dir_that_contains_meth_body="../Bala-Proj/predicting-flakies/Unbalanced/PerProj_Unbalanced_no_Comments/VC/"
+    dir_that_contains_meth_body="../../../Unbalanced/PerProj_Unbalanced_no_Comments/VC/"
 fi
 
 echo "proj,sha,module,od_test_category,od_test,new_prefix_test_orders" > "${2}_updated_File.csv"
@@ -19,7 +19,14 @@ while read line; do
     module=$(echo $line | cut -d',' -f3)
     od_test_category=$(echo $line | cut -d',' -f4)
     od_test=$(echo $line | cut -d',' -f5)
-    prefix_test_orders=$(echo $line | cut -d',' -f6)
+    if [[ $2 == "VPC" ]]; then
+        polluter_test=$(echo $line | cut -d',' -f6) 
+        prefix_test_orders=$(echo $line | cut -d',' -f7)
+        od_test="$od_test,$polluter_test"
+    else
+        prefix_test_orders=$(echo $line | cut -d',' -f6)
+    fi
+    echo $od_test
     new_prefix_test_orders=""
     # Set the Internal Field Separator to semicolon to loop through each test
     IFS=';'
