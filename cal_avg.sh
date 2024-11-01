@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Input file
-input_file="Result-Delta-original/BSS-Result_hdd.csv"
-
+input_file="new_results/VP-Result_originalDD_neworders.csv"
 # Ensure the file exists
 if [[ ! -f "$input_file" ]]; then
     echo "File not found: $input_file"
@@ -10,9 +9,14 @@ if [[ ! -f "$input_file" ]]; then
 fi
 
 # Extract unique values from the 5th column (Od-test) and process each group
-cut -d, -f5 "$input_file" | sort -u | while read -r od_test; do
+# Group by project, sha, module, type, and od_test using cut and process each group
+cut -d, -f1-5 "$input_file" | sort -u | while IFS=, read -r project sha module type od_test; do
+    # Extract all rows matching the current group
+    rows=$(grep -F "$project,$sha,$module,$type,$od_test" "$input_file")
+
+#cut -d, -f5 "$input_file" | sort -u | while read -r project,sha,module,type,od_test,total_runtime,machine_runtime; do
     # Get all rows that match the current 'Od-test' group
-    rows=$(grep -F "$od_test" "$input_file")
+ #   rows=$(grep -F "$od_test" "$input_file")
 
     # Count the number of matching rows
     count=$(echo "$rows" | wc -l)
@@ -28,5 +32,6 @@ cut -d, -f5 "$input_file" | sort -u | while read -r od_test; do
     fi
 
     # Print the result in CSV format
-    echo "$od_test,$average" >> DD_hdd_bss.csv
+    echo "$project,$sha,$module,$type,$od_test,$average" >> new_results/DD_vp_orig_neworders.csv
 done
+

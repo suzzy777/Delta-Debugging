@@ -1,4 +1,3 @@
-Project-name,SHA,Module,Type,Od-test,Total-Runtime,Time-to-run-the-last-one
 c2mon_c2mon,d80687b119c713dd177a58cf53a997d8cc5ca264,c2mon-server/c2mon-server-elasticsearch,victim,cern.c2mon.server.elasticsearch.tag.config.TagConfigDocumentIndexerTests.reindexTagConfigDocuments,31.325534000,1.051855839
 c2mon_c2mon,d80687b119c713dd177a58cf53a997d8cc5ca264,c2mon-server/c2mon-server-elasticsearch,victim,cern.c2mon.server.elasticsearch.tag.config.TagConfigDocumentIndexerTests.reindexTagConfigDocuments,63.382734000,2.097465679
 c2mon_c2mon,d80687b119c713dd177a58cf53a997d8cc5ca264,c2mon-server/c2mon-server-elasticsearch,victim,cern.c2mon.server.elasticsearch.tag.config.TagConfigDocumentIndexerTests.reindexTagConfigDocuments,15.662767000,.011400430
