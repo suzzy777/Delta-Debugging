@@ -1,7 +1,7 @@
 #!/bin/bash                                                                                                                                                           
 
 # Input file                                                                                                                                                          
-input_file="new_results/DD_vp_orig_neworders.csv"
+input_file="new_results/DD_vpc_tfidf_sum.csv"
 # Ensure the file exists                                                                                                                                              
 if [[ ! -f "$input_file" ]]; then
     echo "File not found: $input_file"
@@ -30,5 +30,5 @@ cut -d, -f1-3 "$input_file" | sort -u | while IFS=, read -r project sha module; 
     fi
 
     # Output the result in the required format
-    echo "$project,$sha,$module,$average" >> new_results/module_dd_original_vp.csv
+    echo "$project,$sha,$module,$average" >> new_results/module_dd_tfidf_sum_vpc.csv
 done
